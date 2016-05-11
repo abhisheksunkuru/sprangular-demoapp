@@ -1,0 +1,23 @@
+#checkout-details.container
+  .row
+    .col-md-12
+      h1
+        | {{:: 'checkout.checkout' | translate}}
+
+      p.secure(ng-if='secure')
+        span.fa.fa-lock(ng-if='secure')
+        | &nbsp;{{:: 'checkout.secure_transaction' | translate}}
+
+  .row(ng-show='order.errors')
+    .col-md-12
+      p.error(ng-if='order.errors.base' ng-bind='order.errors.base')
+
+  .row
+    .col-md-4.col-xs-12
+      ng-include(src="'checkout/addresses.html'")
+
+    .col-md-4.col-xs-12
+      ng-include(src="'checkout/delivery_and_payment.html'")
+
+    .col-md-4.col-xs-12
+      ng-include(src="'checkout/review.html'")

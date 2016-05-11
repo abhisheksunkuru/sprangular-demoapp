@@ -1,0 +1,47 @@
+html(ng-app="spreecom" ng-controller="GlobalCtrl")
+  head
+    title(ng-bind="status.meta.title || title")
+
+    meta(http-equiv="X-UA-Compatible" content="IE=edge,chrome=1")
+    meta(name="fragment" content="!")
+    meta(name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+    meta(name="keywords" content="{{status.meta.keywords}}")
+    meta(name="description" content="{{status.meta.description}}")
+
+    meta(property="og:type"  content="Website")
+    meta(property="og:title" content="{{status.meta.title || title}}")
+    meta(property="og:url"   content="{{location.$$absUrl}}")
+    meta(property="og:image" content="{{status.meta.imageUrl}}")
+
+    link(rel="shortcut icon" href="/favicon.ico" type="image/x-icon")
+    link(rel="icon" href="/favicon.ico" type="image/x-icon")
+    link(rel="canonical" href="{{location.$$absUrl}}")
+
+    = csrf_meta_tags
+    = stylesheet_link_tag "application", media: "all"
+
+    = render 'sprangular/shared/templates'
+
+  body(ng-class="status.bodyClasses")
+    #initializing(ng-hide='status.initialized' ng-cloak)
+      ng-include(src="'assets/layout/initializing.html'")
+
+    #initialized(ng-show='status.initialized' ng-cloak)
+      ng-include(src="'assets/layout/loading.html'" ng-show="status.isLoading()")
+      ng-include(src="'assets/layout/flash.html'" ng-show="flash.hasMessages()")
+
+      #wrap
+        ng-include(src="'assets/layout/header.html'")
+
+        #main.container-fluid(ng-view autoscroll="true" ng-cloak)
+
+      ng-include(src="'assets/layout/footer.html'")
+
+    = javascript_include_tag "application"
+
+    = yield
+
+    = render 'sprangular/shared/analytics'
+
+    - if I18n.locale != :en
+      = javascript_include_tag "angular-i18n/angular-locale_#{I18n.locale}.js"

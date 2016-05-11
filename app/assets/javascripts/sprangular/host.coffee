@@ -1,0 +1,1 @@
+angular.module('spreecom', ['Sprangular'])

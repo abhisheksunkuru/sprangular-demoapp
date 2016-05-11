@@ -1,0 +1,10 @@
+#checkout-complete.container
+  .row
+    .col-lg-12
+      h1
+        | {{ :: 'checkout.success' | translate }}
+
+      p(translate="checkout.success_msg" translate-values="{ order_number: '{{order.number}}' }")
+
+      pre
+        | {{ order.state }}

@@ -1,0 +1,38 @@
+h2
+  | {{:: 'orders.order_history' | translate }}
+#order-history
+  .not-found(ng-if='orders.length == 0')
+    p
+      | {{:: 'orders.no_orders_on_file' | translate }}
+
+  .order(ng-repeat="order in orders")
+    dl
+      dt
+        | {{:: 'orders.number' | translate }}
+      dd
+        | {{order.number}}
+
+      dt
+        | {{:: 'orders.state' | translate }}
+      dd
+        | {{order.state}}
+
+      dt
+        | {{:: 'orders.ordered_on' | translate }}
+      dd
+        | {{order.completedAt | date}}
+
+      dt
+        | {{:: 'orders.amount' | translate }}
+      dd
+        | {{order.total | currency : currencySymbol}}
+
+      dt
+        | {{:: 'orders.shipping_state' | translate }}
+      dd
+        | {{order.shipmentState}}
+
+    a.btn.btn-primary.btn-small(ng-href="#!/orders/{{order.number}}")
+      | {{:: 'orders.see_details' | translate }}
+
+    hr

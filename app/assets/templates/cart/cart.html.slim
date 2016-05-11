@@ -1,0 +1,106 @@
+#cart-aside.aside(role="dialog" tabindex="-1" ng-controller='CartCtrl')
+  .aside-dialog
+    .aside-content
+      .aside-header
+        button.close(ng-click="$hide()" type="button") &times;
+        h4.aside-title
+          span.glyphicon.glyphicon-shopping-cart
+          | &nbsp;
+          | {{:: 'cart.my_cart' | translate}}
+          | &nbsp;
+          span.badge(ng-bind='cart.totalQuantity()' ng-hide='isEmpty()')
+      .aside-body
+        .empty(ng-show="isEmpty()")
+          p
+            | {{:: 'cart.my_empty_cart' | translate}}
+          a.btn.btn-lg.btn-primary(ng-href="#!/products" ng-click="$hide()")
+            | {{:: 'cart.start_shopping' | translate}}
+
+        .with-items(ng-hide="isEmpty()")
+          table.table.table-striped
+            tr
+              th(colspan=2 width="50%")
+                | {{:: 'cart.item' | translate}}
+              th(width="25%")
+                | {{:: 'cart.quantity' | translate}}
+              th
+                | {{:: 'cart.price' | translate}}
+              th
+
+            tr.item(ng-repeat='item in cart.items')
+              td.image
+                a(ng-href="#!/products/{{item.variant.product.slug}}")
+                  img(ng-src="{{item.variant.image.miniUrl}}")
+
+              td.name
+                p
+                  a(ng-href="#!/products/{{item.variant.product.slug}}")
+                    | {{item.variant.product.name}}
+
+                  section.options(ng-show='item.variant.product.hasVariants')
+                    variant-selection(product="item.variant.product" variant="item.variant" change="cart.changeVariant(oldVariant, newVariant)")
+
+              td.quantity
+                quantity-input(quantity="item.quantity" variant="item.variant" update-cart="true")
+
+              td.price.number
+                span
+                  | {{item.price * item.quantity | currency : currencySymbol}}
+
+              td.actions
+                a.remove(ng-click="removeItem(item)")
+                  span.glyphicon.glyphicon-remove
+
+            tr.item-total
+              td(colspan=2)
+                | {{:: 'cart.sub_total' | translate}}
+              td.number(colspan=2 ng-bind='cart.itemTotal | currency : currencySymbol')
+              td
+
+            tr.adjustment(ng-repeat='adjustment in cart.line_item_adjustments')
+              td(colspan=2 ng-bind='adjustment.label')
+              td.number(colspan=2 ng-bind='adjustment.amount | currency : currencySymbol')
+
+              td
+                a.remove(ng-click='removeAdjustment(adjustment)' ng-if='adjustment.isPromo()')
+                  span.glyphicon.glyphicon-remove
+
+            tr.adjustment(ng-repeat='adjustment in cart.adjustments')
+              td(colspan=2 ng-bind='adjustment.label')
+              td.number(colspan=2 ng-bind='adjustment.amount | currency : currencySymbol')
+
+              td
+                a.remove(ng-click='removeAdjustment(adjustment)' ng-if='adjustment.isPromo()')
+                  span.glyphicon.glyphicon-remove
+
+            tr.shipping
+              td(colspan=2)
+                | {{:: 'cart.shipping' | translate }}
+
+                span(ng-if='cart.shippingRate.name')
+                  |&nbsp;- {{cart.shippingRate.name}}
+
+              td.number(colspan=2 ng-bind='cart.shipTotal | currency : currencySymbol')
+              td
+
+            tr.taxes
+              td(colspan=2)
+                | {{:: 'cart.tax' | translate}}
+              td.number(colspan=2 ng-bind='cart.taxTotal | currency : currencySymbol')
+              td
+
+            tr.total
+              td(colspan=2)
+                | {{:: 'cart.total' | translate}}
+              td.number(colspan=2 ng-bind='cart.total | currency : currencySymbol')
+              td
+
+      .aside-footer.clearfix(ng-hide='isEmpty()')
+        .pull-left
+          a.empty.btn.btn-link(ng-click="empty()")
+            | {{:: 'cart.empty_cart' | translate}}
+
+          promo-form(order='cart')
+
+        .pull-right
+          checkout-button(user='user' ng-click='$hide()')
