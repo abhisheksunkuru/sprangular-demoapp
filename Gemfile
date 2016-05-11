@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 source 'https://rails-assets.org'
 
 spree_branch = '2-4-stable'
-ruby '2.1.1'
+ruby '2.1.10'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.11'
 # Use postgresql as the database for Active Record
