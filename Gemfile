@@ -47,3 +47,4 @@ gem 'spree_sample',      github: 'spree/spree',             branch: spree_branch
 gem 'spree_gateway',     github: 'spree/spree_gateway',     branch: spree_branch
 gem 'spree_auth_devise', github: 'spree/spree_auth_devise', branch: spree_branch
 gem 'sprangular',        github: 'sprangular/sprangular'
+gem 'rails_12factor',group: :production
