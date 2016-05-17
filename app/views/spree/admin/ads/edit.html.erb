@@ -1,0 +1,28 @@
+<% content_for :page_title do %>
+  <%= link_to "Edit", main_app.edit_spree_admin_ad_url(@ad) %>
+<% end %>
+
+
+<fieldset data-hook="admin_ad_edit_general_settings" class="alpha twelve columns">
+  <legend><%= Spree.t(:general_settings) %></legend>
+
+  <div data-hook="admin_ad_edit_form_header">
+    <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @ad } %>
+  </div>
+
+  <div data-hook="admin_user_edit_form">
+    <%= form_for [:spree,:admin, @ad],  url: main_app.spree_admin_ad_url(@ad), method: :put do |f| %>
+      <%= render :partial => 'form', :locals => { :f => f } %>
+
+      <div data-hook="admin_user_edit_form_button">
+        <div class="form-buttons filter-actions actions" data-hook="buttons">
+          <%= button Spree.t('actions.update'), 'refresh' %>
+          <span class="or"><%= Spree.t(:or) %></span>
+          <%= button_link_to Spree.t('actions.cancel'), main_app.spree_admin_ads_url, :icon => 'remove' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</fieldset>
+
+

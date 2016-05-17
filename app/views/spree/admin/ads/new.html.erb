@@ -1,0 +1,29 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:new_ad) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t(:back_to_ads_path), main_app.spree_admin_ads_path, :icon => 'arrow-left' %>
+  </li>
+<% end %>
+
+<div data-hook="admin_ad_new_form_header">
+  <%= render :partial => 'spree/shared/error_messages', :locals => { :target => @ad } %>
+</div>
+
+<div data-hook="admin_ad_new_form">
+  <%= form_for [:spree,:admin, @ad],url: main_app.spree_admin_ads_url,method: :post do |f| %>
+    <%= render :partial => 'form', :locals => { :f => f } %>
+
+    <div data-hook="admin_ads_new_form_buttons">
+      <%#= render :partial => 'spree/admin/shared/new_resource_links' %>
+      <div class="form-buttons filter-actions actions" data-hook="buttons">
+        <%= button Spree.t('actions.create'), 'ok' %>
+        <span class="or"><%= Spree.t(:or) %></span>
+        <%= link_to_with_icon 'remove', Spree.t('actions.cancel'), main_app.spree_admin_ads_path, :class => 'button' %>
+      </div>
+
+    </div>
+  <% end %>
+</div>

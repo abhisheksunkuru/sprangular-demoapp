@@ -1,0 +1,20 @@
+<div data-hook="admin_ads_form_fields" class="row">
+
+
+  <div data-hook="admin_ads_form_image_fields" class="omega six columns">
+    <%= f.field_container :name do %>
+      <%= f.label :name, Spree.t(:name) %>
+      <%= f.text_field :name, :class => 'fullwidth' %>
+      <%= f.error_message_on :name %>
+    <% end %>
+
+    <%= f.field_container :avatar do %>
+      <%= f.label :avatar, Spree.t(:avatar) %>
+      <%= f.file_field :avatar, :class => 'fullwidth' %>
+      <%= f.error_message_on :avatar %>
+      <% if f.object.avatar.present? %>
+        <%= image_tag f.object.avatar.url(:thumb) %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

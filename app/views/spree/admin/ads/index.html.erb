@@ -1,0 +1,34 @@
+
+<% content_for :page_title do %>
+  <%= Spree.t(:listing_ads) %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <li>
+    <%= button_link_to Spree.t(:new_ad), main_app.new_spree_admin_ad_url, :icon => 'plus', :id => 'admin_new_user_link' %>
+  </li>
+<% end %>
+
+<table class="index" id="listing_ads" data-hook>
+  <colgroup>
+    <col style="width: 85%">
+    <col style="width: 15%">
+  </colgroup>
+  <thead>
+    <th>Name</th>
+    <th>Action</th>
+  </thead>
+  <tbody>
+    <% @ads.each do |ad|%>
+      <tr id="<%= spree_dom_id ad %>" data-hook="spree_admin_ads_index_rows" class="<%= cycle('odd', 'even')%>">
+        <td class='ad_email'><%=ad.name %></td>
+        <td data-hook="spree_admin_ads_index_row_actions" class="ad_actions">
+          <%= link_to "Edit",main_app.edit_spree_admin_ad_path(ad),:icon=>'plus'%>
+          <%= link_to "Delete",main_app.spree_admin_ad_path(ad),method: :delete %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%#= paginate @ads %>
