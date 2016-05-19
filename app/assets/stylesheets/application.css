@@ -13,4 +13,7 @@
  *= require_tree .
  *= require_self
   *= require sprangular
+ *= require angular-carousel.min
+ *= require reset
+ *= require demo
 */

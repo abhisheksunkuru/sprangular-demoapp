@@ -1,13 +1,10 @@
-.jumbotron
-  .container
-    h1 Welcome to <b>Sprangular</b>!
-    p <b>Spr</b>ee + <b>Angular</b>.js + Bootstrap
-    p
-      | To override this template, add&nbsp;
-      code app/assets/templates/home/jumbotron.html.slim
-      | &nbsp;to your project.
-
-    .pull-right
-      a.btn.btn-primary.btn-lg(ng-href="https://github.com/DynamoMTL/sprangular")
-        | Learn More
-        span.glyphicon.glyphicon-chevron-right
+article ng-controller="DemoCtrl"
+  section
+    div ng-carousel="" ng-carousel-name="example-carousel1" ng-carousel-watch="slides" ng-carousel-timer=2000
+      slidecontainer
+        slide ng-repeat="slide in slides"
+          img ng-src="{{slide.avatar_url}}"
+      .carousel-arrow.carousel-arrow-left
+        button.demo-nav.btn-default ng-click="Carousel.get('example-carousel1').previous()"  back
+      .carousel-arrow.carousel-arrow-right
+        button.demo-nav.btn-default ng-click="Carousel.get('example-carousel1').next()"  forth

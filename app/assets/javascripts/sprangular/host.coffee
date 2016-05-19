@@ -1,1 +1,1 @@
-angular.module('spreecom', ['Sprangular'])
+angular.module('spreecom', ['Sprangular','angular-carousel'])

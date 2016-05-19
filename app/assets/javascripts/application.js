@@ -17,3 +17,6 @@
 //= require sprangular/extraRoutes
 //= require_tree ./sprangular/controllers
 //= require_tree ./sprangular/services
+//= require hammer.min
+//= require angular-carousel.min
+//= require demo

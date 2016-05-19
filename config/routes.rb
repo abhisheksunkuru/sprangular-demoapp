@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :ads
     end
+    namespace :api, defaults: { format: 'json' } do
+      resources :ads, only: [:index]
+    end
   end
 
   # This line mounts Spree's routes at the root of your application.
